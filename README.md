@@ -1,4 +1,5 @@
 # AlphaForge
+<img width="2558" height="1381" alt="Screenshot 2026-05-08 200236" src="https://github.com/user-attachments/assets/a9e7af5c-5814-4813-8a1a-0f878ab78971" />
 
 **End-to-end ML system for stock-direction forecasting & backtesting on Indian equities (NSE).**
 
