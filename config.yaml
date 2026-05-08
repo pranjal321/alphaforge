@@ -1,0 +1,46 @@
+data:
+  tickers: [RELIANCE.NS, TCS.NS, HDFCBANK.NS, INFY.NS, ICICIBANK.NS]
+  start_date: "2019-01-01"
+  end_date: "2024-12-31"
+  cache_dir: data/
+
+features:
+  ma_windows: [5, 10, 20, 50]
+  rsi_period: 14
+  macd_fast: 12
+  macd_slow: 26
+  macd_signal: 9
+  bb_period: 20
+  bb_std: 2
+  atr_period: 14
+
+model:
+  xgboost:
+    n_estimators: 400
+    max_depth: 5
+    learning_rate: 0.05
+    subsample: 0.8
+    colsample_bytree: 0.8
+    random_state: 42
+  lstm:
+    sequence_length: 30
+    hidden_size: 64
+    num_layers: 2
+    dropout: 0.2
+    epochs: 30
+    batch_size: 64
+    lr: 0.001
+  ensemble_weights: [0.6, 0.4]   # [xgb, lstm]
+
+backtest:
+  initial_capital: 100000
+  brokerage_pct: 0.0003          # 0.03% Zerodha-like
+  slippage_pct: 0.0005           # 0.05% slippage
+  position_size_pct: 0.95        # use 95% of capital per trade
+  signal_threshold: 0.55         # buy if prob > 0.55
+  walk_forward_splits: 5
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  model_path: models_saved/xgb_model.pkl
